@@ -2,28 +2,46 @@ import java.util.Scanner;
 
 public class MakeChangeApp {
 
+	static double itemPrice; // static so methods can read
+	static double amountTendered; // variables
+	static double difference;
+	static int penny = 0, nickel = 0, dime = 0, quarter = 0;
+	static int twentyDollar = 0, oneDollar = 0, fiveDollar = 0, tenDollar = 0;
+
 	public static void main(String[] args) {
 		Scanner keyboard = new Scanner(System.in);
 
-		double itemPrice, amountTendered, changeDue;
-		int penny = 0, nickel = 0, dime = 0, quarter = 0;
-		int oneDollar = 0, fiveDollar = 0, tenDollar = 0, twentyDollar = 0;
-		int subChangeDue = 0;
-
-		System.out.print("Enter the price of the item: ");
+		System.out.print("Enter the price of the item: "); // gets input
 		itemPrice = keyboard.nextDouble();
 
-		System.out.print("Enter the amount tendered: ");
+		System.out.print("Enter the amount tendered: "); // gets input
 		amountTendered = keyboard.nextDouble();
 
+		difference = amountTendered - itemPrice; // used to print amount of change
+
+		boolean isChangeDue = calculateChange(itemPrice, amountTendered); // is change due?
+
+		if (isChangeDue) {
+			printResults(); // prints the results
+		}
+
+		keyboard.close();
+
+	}
+
+	public static boolean calculateChange(double itemPrice, double amountTendered) {
 		// calculates change due
-		changeDue = amountTendered - itemPrice;
+		// returns true if change is due, false if no change is due
+
+		double changeDue = amountTendered - itemPrice;
+		int subChangeDue = 0;
 
 		if (changeDue == 0.0) {
 			System.out.println("You provided the exact amount! Thank you come again!");
-
+			return false;
 		} else if (changeDue < 0) {
 			System.out.println("Thats not enough. Please insert more money.");
+			return false;
 		} else if (changeDue > 0) { // starts at highest denom. & works down to lowest
 
 			while (changeDue >= 20) {
@@ -65,53 +83,41 @@ public class MakeChangeApp {
 				subChangeDue -= 1;
 				penny++;
 			}
-
-			System.out.println("Change due:");
-
-			// prints results
-			if (twentyDollar > 1) {
-				System.out.println(twentyDollar + " Twenty Dollar Bills");
-			} else if (twentyDollar > 0) {
-				System.out.println(twentyDollar + " Twenty Dollar Bill");
-			}
-			if (tenDollar > 1) {
-				System.out.println(tenDollar + " Ten Dollar Bills");
-			} else if (tenDollar > 0) {
-				System.out.println(tenDollar + " Ten Dollar Bill");
-			}
-			if (fiveDollar > 1) {
-				System.out.println(fiveDollar + " Five Dollar Bills");
-			} else if (fiveDollar > 0) {
-				System.out.println(fiveDollar + " Five Dollar Bill");
-			}
-			if (oneDollar > 1) {
-				System.out.println(oneDollar + " One Dollar Bills");
-			} else if (oneDollar > 0) {
-				System.out.println(oneDollar + " One Dollar Bill");
-			}
-			if (quarter > 1) {
-				System.out.println(quarter + " Quarters");
-			} else if (quarter > 0) {
-				System.out.println(quarter + " Quarter");
-			}
-			if (dime > 1) {
-				System.out.println(dime + " Dimes");
-			} else if (dime > 0) {
-				System.out.println(dime + " Dime");
-			}
-			if (nickel > 1) {
-				System.out.println(nickel + " Nickels");
-			} else if (nickel > 0) {
-				System.out.println(nickel + " Nickel");
-			}
-			if (penny > 1) {
-				System.out.println(penny + " Pennies");
-			} else if (penny > 0) {
-				System.out.println(penny + " Penny");
-			}
-			System.out.println("Thank you come again!");
 		}
-		keyboard.close();
+		return true;
 	}
 
+	public static void printResults() {
+		// prints results
+		System.out.print("\nChange due: $");
+		System.out.printf("%.2f", difference);
+		System.out.println("\n" + "--------------------");
+
+		printMonies(twentyDollar, "Twenty Dollar Bill");
+		printMonies(tenDollar, "Ten Dollar Bill");
+		printMonies(fiveDollar, "Five Dollar Bill");
+		printMonies(oneDollar, "One Dollar Bill");
+		printMonies(quarter, "Quarter");
+		printMonies(dime, "Dime");
+		printMonies(nickel, "Nickel");
+		printMonies(penny, "Penny");
+
+		System.out.println("--------------------\n" + "Thank you come again!");
+	}
+
+	public static void printMonies(int amount, String type) {
+		if (type.equals("Penny")) {
+			if (amount > 1) {
+				System.out.println(amount + " Pennies");
+			} else if (amount > 0) {
+				System.out.println(amount + " Penny");
+			}
+			return;
+		}
+		if (amount > 1) {
+			System.out.println(amount + " " + type + "s");
+		} else if (amount > 0) {
+			System.out.println(amount + " " + type);
+		}
+	}
 }
