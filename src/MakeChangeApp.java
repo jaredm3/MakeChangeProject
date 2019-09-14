@@ -15,8 +15,8 @@ public class MakeChangeApp {
 
 		System.out.print("Enter the amount tendered: ");
 		amountTendered = keyboard.nextDouble();
-		
-		//calculates change due
+
+		// calculates change due
 		changeDue = amountTendered - itemPrice;
 
 		if (changeDue == 0.0) {
@@ -24,7 +24,7 @@ public class MakeChangeApp {
 
 		} else if (changeDue < 0) {
 			System.out.println("Thats not enough. Please insert more money.");
-		} else if (changeDue > 0) {    //starts at highest denom. & works down to lowest
+		} else if (changeDue > 0) { // starts at highest denom. & works down to lowest
 
 			while (changeDue >= 20) {
 				changeDue -= 20;
@@ -67,8 +67,8 @@ public class MakeChangeApp {
 			}
 
 			System.out.println("Change due:");
-			
-			//prints results
+
+			// prints results
 			if (twentyDollar > 1) {
 				System.out.println(twentyDollar + " Twenty Dollar Bills");
 			} else if (twentyDollar > 0) {
@@ -111,7 +111,7 @@ public class MakeChangeApp {
 			}
 			System.out.println("Thank you come again!");
 		}
-
+		keyboard.close();
 	}
 
 }
