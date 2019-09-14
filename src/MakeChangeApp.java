@@ -67,19 +67,19 @@ public class MakeChangeApp {
 			// Takes changeDue(0.xx) and casts it to an int subChangeDue(xx)
 			subChangeDue = (int) (changeDue * 100);
 
-			while (subChangeDue > 25) {
+			while (subChangeDue >= 25) {
 				subChangeDue -= 25;
 				quarter++;
 			}
-			while (subChangeDue > 10) {
+			while (subChangeDue >= 10) {
 				subChangeDue -= 10;
 				dime++;
 			}
-			while (subChangeDue > 5) {
+			while (subChangeDue >= 5) {
 				subChangeDue -= 5;
 				nickel++;
 			}
-			while (subChangeDue > 0) {
+			while (subChangeDue >= 1) {
 				subChangeDue -= 1;
 				penny++;
 			}
